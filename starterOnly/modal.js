@@ -137,6 +137,37 @@ function conditionsGeneralesChecked(termsAccepted) {
 
 }
 
+/**Fonction pour afficher un message de remerciement après validation du formulaire */
+
+function successSubmit() {
+  const modalBody = document.querySelector(".modal-body")
+//Suppression du formulaire
+  modalBody.innerHTML = ""
+  modalBody.display ="flex"
+  modalBody.style.alignContent = "center"
+//Contenu du message
+  const message = document.createElement("p")
+  message.textContent = "Merci pour votre inscription !"
+  message.style.fontSize = "36px"
+  message.style.textAlign = "center"
+  message.display = "flex"
+  message.style.alignContent = "center"
+
+  //Bouton Fermer
+  const closeBtn = document.createElement("button")
+  closeBtn.textContent = "Fermer"
+  closeBtn.className = "btn-close"
+  closeBtn.style.display = "block"
+
+  //Fermeture de la modale
+  closeBtn.addEventListener("click", closeModal)
+
+modalBody.appendChild(message)
+modalBody.appendChild(closeBtn)
+
+  const closeSpan = document.querySelector(".close");
+  closeSpan.style.display = "block"
+}
 
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
@@ -151,7 +182,7 @@ closeBtn.addEventListener("click", closeModal);
 
 // close modal form
 function closeModal() {
-  modalbg.style.display = "none";
+  modalbg.style.display = "none"
 }
 
 //Submit Form
@@ -180,6 +211,8 @@ function validate() {
     eventQuantity(quantity)
     locationSelected(isLocationSelected)
     conditionsGeneralesChecked(termsAccepted)
+
+    successSubmit()
     
     console.log(firstName, lastName, email, quantity, birthDate, isLocationSelected, termsAccepted )
 

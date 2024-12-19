@@ -182,10 +182,22 @@ main {
   color: #fff;
   padding-top: 10px;
 }
-
+/* Modification CSS pour que le message de succès et le bouton "fermer" soient bien centrés */
 .modal-body {
   padding: 15px 8%;
   margin: 15px auto;
+  min-height: 700px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center;
+  position: relative;
+  padding: 20px;
+  box-sizing: border-box;
+}
+.modal-body p {
+  margin: 0;
+  text-align: center;
 }
 
 label {
@@ -343,6 +355,19 @@ input[data-error]::after {
 }
 .btn-submit,
 .btn-signup {
+  background: #fe142f;
+  display: block;
+  margin: 0 auto;
+  border-radius: 7px;
+  font-size: 1rem;
+  padding: 12px 82px;
+  color: #fff;
+  cursor: pointer;
+  border: 0;
+}
+.btn-close {
+  position: absolute;
+  bottom: 20px;
   background: #fe142f;
   display: block;
   margin: 0 auto;
