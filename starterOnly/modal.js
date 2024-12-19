@@ -27,27 +27,46 @@ const form = document.querySelector("form")
 */
 
 function validerPrenom(prenom) {
-  if (prenom.length >= 2) {
-    return true
-  } 
-  return false
+  const firstNameField = document.getElementById("first").parentElement
+
+  if (prenom.length < 2) {
+    firstNameField.setAttribute("data-error", "Veuillez entrer 2 caractères ou plus pour le champ du prénom.")
+    firstNameField.setAttribute("data-error-visible", "true")
+    throw new Error("Veuillez entrer 2 caractères ou plus pour le champ du prénom.")
+     
+  }
+  firstNameField.removeAttribute("data-error")
+  firstNameField.setAttribute("data-error-visible", "false")
 }
+
 function validerNom(nom) {
+  const lastNameField = document.getElementById("last").parentElement
+
   if (nom.length < 2) {
+    lastNameField.setAttribute("data-error", "Veuillez entrer 2 caractères ou plus pour le champ du nom.")
+    lastNameField.setAttribute("data-error-visible", "true")
     throw new Error("Veuillez entrer 2 caractères ou plus pour le champ du nom.")
-  }  
-}
+     
+  }
+  lastNameField.removeAttribute("data-error")
+  lastNameField.setAttribute("data-error-visible", "false")
+} 
 
 /**  Fonction pour valider l'email dans le champ de saisie
  * @param {string} email
 */
 
 function validerEmail(email) {
-  let emailRegExp = new RegExp("[a-z0-9.-_]+@[a-z0-9.-_]+\\.[a-z0-9.-_]+")
-  if (emailRegExp.test(email)) {
-    return true
+  const emailField = document.getElementById("email").parentElement
+  const emailRegExp = new RegExp("[a-z0-9.-_]+@[a-z0-9.-_]+\\.[a-z0-9.-_]+")
+
+  if (!emailRegExp.test(email)) {
+    emailField.setAttribute("data-error", "Veuillez entrer une adresse email valide.")
+    emailField.setAttribute("data-error-visible", "true")
+    throw new Error("Veuillez entrer une adresse email valide.")
   }
-  return false
+  emailField.removeAttribute("data-error")
+  emailField.setAttribute("data-error-visible", "false")
 }
 
 /** Fonction pour déterminer si la date de naissance a bien été selectionnée
@@ -55,9 +74,15 @@ function validerEmail(email) {
  * @throws {Error}
  */
 function birthDateSelected(birthDate) {
+  const birthDateField = document.getElementById("birthdate").parentElement
+
   if (!birthDate) {
+    birthDateField.setAttribute("data-error", "Vous devez choisir une date de naissance")
+    birthDateField.setAttribute("data-error-visible", "true")
     throw new Error("Vous devez entrer votre date de naissance.")
   }
+  birthDateField.removeAttribute("data-error")
+  birthDateField.setAttribute("data-error-visible", "false")
 
 }
 
@@ -65,21 +90,33 @@ function birthDateSelected(birthDate) {
  * @param {number} quantity 
  */
 function eventQuantity(quantity) {
-  if (quantity !== "") {
-    return true
+  const quantityField = document.getElementById("quantity").parentElement
+
+  if (quantity === "") {
+    quantityField.setAttribute("data-error", "Vous devez sélectionner un nombre de participations")
+    quantityField.setAttribute("data-error-visible", "true")
+    throw new Error("Vous devez sélectionner un nombre de participations")
   }
-  return false
+  quantityField.removeAttribute("data-error")
+  quantityField.setAttribute("data-error-visible", "false")
+  
 }
 
-/** Fonction pour déterminer si une option a été sélectionnée
+/** Fonction pour déterminer si une option de lieu a été sélectionnée
  * @param {string} isLocationSelected 
  * @throws {Error}
  */
 function locationSelected(isLocationSelected) {
+  const locationField = document.querySelector(".formRadio")
 
   if (!isLocationSelected) {
+    locationField.setAttribute("data-error", "Vous devez choisir une option.")
+    locationField.setAttribute("data-error-visible", "true")
     throw new Error("Vous devez choisir une option.")
   }
+
+  locationField.removeAttribute("data-error")
+  locationField.setAttribute("data-error-visible", "false")
 }
 
 /**Fonction pour déterminer si la checkbox des conditions générales d'utilisation a bien été cochée 
@@ -87,28 +124,17 @@ function locationSelected(isLocationSelected) {
  * @throws {Error}
  */
 function conditionsGeneralesChecked(termsAccepted) {
+  const termsField = document.getElementById("checkbox1").parentElement
+
   if (!termsAccepted) {
+    termsField.setAttribute("data-error", "Vous devez vérifier que vous acceptez les termes et conditions.")
+    termsField.setAttribute("data-error-visible", "true")
     throw new Error("Vous devez vérifier que vous acceptez les termes et conditions.")
+    
   }
+  termsField.removeAttribute("data-error")
+  termsField.setAttribute("data-error-visible", "false")
 
-}
-
-/**Fonction pour l'affichage et la création d'un message d'erreur s'il l'un des champs du formulaire est incomplet
- * Le message s'affiche sous le bouton de validation du formulaire
- * @param {string} message 
- */
-function afficherMessageErreur(message) {
- 
-  let spanErreurMessage = document.getElementById("erreurMessage")
-
-  if (!spanErreurMessage) {
-    let contentErreur = document.querySelector(".content")
-    spanErreurMessage = document.createElement("span")
-    spanErreurMessage.id = "erreurMessage"
-    contentErreur.append(spanErreurMessage)
-  }
-
-  spanErreurMessage.innerText = message
 }
 
 
@@ -135,7 +161,7 @@ function closeModal() {
 
 function validate() {
 
-  try {
+    
   // Récupération des champs
     const firstName = document.getElementById("first").value.trim()
     const lastName = document.getElementById("last").value.trim()
@@ -156,15 +182,10 @@ function validate() {
     conditionsGeneralesChecked(termsAccepted)
     
     console.log(firstName, lastName, email, quantity, birthDate, isLocationSelected, termsAccepted )
-    afficherMessageErreur("")
-  } catch(erreur) {
-    afficherMessageErreur(erreur.message)
-  }
 
   }
   form.addEventListener("submit", (event) => {
     event.preventDefault()
-    closeModal()
   
   
   })
