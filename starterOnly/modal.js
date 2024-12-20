@@ -143,15 +143,12 @@ function successSubmit() {
   const modalBody = document.querySelector(".modal-body")
 //Suppression du formulaire
   modalBody.innerHTML = ""
-  modalBody.display ="flex"
-  modalBody.style.alignContent = "center"
+
 //Contenu du message
   const message = document.createElement("p")
   message.textContent = "Merci pour votre inscription !"
   message.style.fontSize = "36px"
   message.style.textAlign = "center"
-  message.display = "flex"
-  message.style.alignContent = "center"
 
   //Bouton Fermer
   const closeBtn = document.createElement("button")
@@ -164,9 +161,6 @@ function successSubmit() {
 
 modalBody.appendChild(message)
 modalBody.appendChild(closeBtn)
-
-  const closeSpan = document.querySelector(".close");
-  closeSpan.style.display = "block"
 }
 
 // launch modal event
