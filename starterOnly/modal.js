@@ -11,6 +11,7 @@ function editNav() {
 
 
 // DOM Elements
+(function () {
 const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
@@ -20,10 +21,26 @@ const closeBtn = document.querySelector(".close")
 // DOM Champ de formulaire
 const form = document.querySelector("form")
 
-/** Ces fonctions prennent en paramètre un nom pour l'une, un prénom pour l'autre en paramètre et valident qu'ils soient au bon format.
+// launch modal event
+modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
+
+// launch modal form
+function launchModal() {
+  modalbg.style.display = "block";
+}
+
+// close modal event
+closeBtn.addEventListener("click", closeModal);
+
+// close modal form
+function closeModal() {
+  modalbg.style.display = "none"
+}
+
+/** Ces fonctions prennent en paramètre un nom pour l'une, un prénom pour l'autre et valident qu'ils soient au bon format.
 * Le nom et le prénom doivent tous deux avoir au minimum deux caractères pour être valides
 * @param {string} nom
-* @throws {Error}
+* @param {string} prenom
 */
 
 function validerPrenom(prenom) {
@@ -74,7 +91,6 @@ function validerEmail(email) {
 
 /** Fonction pour déterminer si la date de naissance a bien été selectionnée
  * @param {Date} birthDate 
- * @throws {Error}
  */
 function birthDateSelected(birthDate) {
   const birthDateField = document.getElementById("birthdate").parentElement
@@ -107,7 +123,6 @@ function eventQuantity(quantity) {
 
 /** Fonction pour déterminer si une option de lieu a été sélectionnée
  * @param {string} isLocationSelected 
- * @throws {Error}
  */
 function locationSelected(isLocationSelected) {
   const locationField = document.querySelector(".formRadio")
@@ -125,7 +140,6 @@ function locationSelected(isLocationSelected) {
 
 /**Fonction pour déterminer si la checkbox des conditions générales d'utilisation a bien été cochée 
  * @param {boolean} termsAccepted 
- * @throws {Error}
  */
 function conditionsGeneralesChecked(termsAccepted) {
   const termsField = document.getElementById("checkbox1").parentElement
@@ -167,22 +181,6 @@ modalBody.appendChild(message)
 modalBody.appendChild(closeBtn)
 }
 
-// launch modal event
-modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
-
-// launch modal form
-function launchModal() {
-  modalbg.style.display = "block";
-}
-
-// close modal event
-closeBtn.addEventListener("click", closeModal);
-
-// close modal form
-function closeModal() {
-  modalbg.style.display = "none"
-}
-
 //Submit Form
 
 
@@ -222,3 +220,4 @@ function validate() {
     event.preventDefault()
   
   })
+})()
