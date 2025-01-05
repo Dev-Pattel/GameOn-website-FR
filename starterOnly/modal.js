@@ -11,8 +11,7 @@ function editNav() {
 
 
 // DOM Elements
-(function () {
-const modalbg = document.querySelector(".bground");
+let modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const closeBtn = document.querySelector(".close")
@@ -100,6 +99,20 @@ function birthDateSelected(birthDate) {
     birthDateField.setAttribute("data-error-visible", "true")
     return false
   }
+
+  //Age minimum requis : 15 ans 
+  const today = new Date();
+  const minDate = new Date(today.getFullYear() - 15, today.getMonth(), today.getDate());
+
+  const userBirthDate = new Date(birthDate);
+
+  // Vérifier si la date de naissance est valide (âge >= 15 ans)
+  if (userBirthDate > minDate) {
+    birthDateField.setAttribute("data-error", "Vous devez avoir au moins 15 ans pour vous inscrire.");
+    birthDateField.setAttribute("data-error-visible", "true");
+    return false;
+  }
+
   birthDateField.removeAttribute("data-error")
   birthDateField.setAttribute("data-error-visible", "false")
   return true
@@ -176,6 +189,7 @@ function successSubmit() {
 
   //Fermeture de la modale
   closeBtn.addEventListener("click", closeModal)
+  
 
 modalBody.appendChild(message)
 modalBody.appendChild(closeBtn)
@@ -187,7 +201,7 @@ modalBody.appendChild(closeBtn)
 /** La fonction se déclenche au moment du submit du form */
 
 function validate() {
-
+  
     
   // Récupération des champs
     const firstName = document.getElementById("first").value.trim()
@@ -218,6 +232,7 @@ function validate() {
   }
   form.addEventListener("submit", (event) => {
     event.preventDefault()
+
+  form.reset()  
   
   })
-})()
